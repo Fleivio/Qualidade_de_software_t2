@@ -22,12 +22,12 @@ def test_title(setup):
 def test_swap(setup):
     driver = setup
     sleep(2)
-    lButton = driver.find_element(By.XPATH, "//a[contains (@class, 'bx-prev uzk15__iconlink')]")
+    rButton = driver.find_element(By.XPATH, "//*[@id=\"mainslider1\"]/div[2]/div/span[2]/a")
     img = driver.find_element(By.XPATH, "//*[@id=\"mainslider1\"]/div[3]/div[1]/ul")
+
     style1 = img.get_attribute("style")
-    lButton.click()
+    rButton.click()
     sleep(2)
+
     style2 = img.get_attribute("style")
-    print(style1)
-    print(style2)
     assert style1 != style2
