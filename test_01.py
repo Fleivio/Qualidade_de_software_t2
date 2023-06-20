@@ -20,7 +20,7 @@ def setup():
 def test_title(setup):
     driver = setup
     title = driver.title
-    assert "Universität zu Köln" in title
+    assert "Universität zu Köln" == title
 
 @pytest.mark.test
 def test_swap(setup):
@@ -101,3 +101,109 @@ def test_to_top(setup):
     toTopButton.click()
     sleep(2)
     assert driver.execute_script("return document.body.scrollHeight") == defScrl
+
+@pytest.mark.test
+def test_search(setup):
+    driver = setup
+    search = driver.find_element(By.XPATH, "/html/body/header/div/div[2]/div/div/div[2]/form[3]/input[1]")
+    search.send_keys("test")
+    search.send_keys(Keys.ENTER)
+    sleep(2)
+
+    assert driver.title == "Google-Suche"
+
+@pytest.mark.test
+def test_language_switch(setup):
+    driver = setup
+    sleep(2)
+    button = driver.find_element(By.XPATH, "/html/body/header/div/div[2]/div/div/nav/div/form/p/span/select")
+    button.click()
+    sleep(2)
+
+    dropdown = driver.find_element(By.XPATH, "/html/body/header/div/div[2]/div/div/nav/div/form/p/div")
+    dropdown.click()
+    sleep(2)
+
+    lang = driver.find_element(By.XPATH, "/html").get_attribute("lang")
+
+    assert lang == "en-US"
+
+@pytest.mark.test
+def test_hover(setup):
+    driver = setup
+    sleep(2)
+    button = driver.find_element(By.XPATH, "/html/body/div[2]/div[1]/main/article[2]/a")
+    hover = ActionChains(driver).move_to_element(button)
+    hover.perform()
+    sleep(2)
+
+    assert button.value_of_css_property("background-color") == "rgba(50, 71, 91, 1)"
+
+
+@pytest.mark.test
+def test_image_alt(setup):
+    driver = setup
+    sleep(2)
+    img = driver.find_element(By.XPATH, "/html/body/div[2]/div[1]/main/article[2]/a/figure/img")
+    alt = img.get_attribute("alt")
+
+    assert alt == "Student sitzt mit einem Laptop auf der Treppe"
+
+@pytest.mark.test
+def test_pagination(setup):
+    driver = setup
+    sleep(2)
+    link = driver.find_element(By.XPATH, "/html/body/div[2]/div[1]/main/div[12]/span/a")
+    link.click()
+    sleep(2)
+    link_4 = driver.find_element(By.XPATH, "/html/body/div[2]/div[1]/main/div[8]/div/section/ul[1]/li[4]/a")
+    link_4.click()
+    sleep(2)
+    link_4_father = driver.find_element(By.XPATH, "/html/body/div[2]/div[1]/main/div[8]/div/section/ul[1]/li[5]")
+
+    assert "current" in link_4_father.get_attribute("class")
+
+@pytest.mark.test
+def test_checkbox(setup):
+    driver = setup
+    sleep(2)
+    link = driver.find_element(By.XPATH, "/html/body/div[2]/div[1]/aside/div[2]/div[3]/div/div/div[2]/div[1]/ul/li[1]/a")
+    link.click()
+    sleep(2)
+    link_drop = driver.find_element(By.XPATH, "/html/body/div[2]/div[1]/aside/div[2]/div[5]/div/form[2]/div[3]/div/fieldset/legend")
+    link_drop.click()
+    sleep(2)
+    link_checkbox = driver.find_element(By.XPATH, "/html/body/div[2]/div[1]/aside/div[2]/div[5]/div/form[2]/div[3]/div/fieldset/div/div[1]/input")
+    link_checkbox.click()
+    sleep(2)
+
+    assert link_checkbox.get_attribute("checked") 
+
+@pytest.mark.test
+def test_checked_count(setup):
+    driver = setup
+    sleep(2)
+    link = driver.find_element(By.XPATH, "/html/body/div[2]/div[1]/aside/div[2]/div[3]/div/div/div[2]/div[1]/ul/li[1]/a")
+    link.click()
+    sleep(2)
+    link_drop = driver.find_element(By.XPATH, "/html/body/div[2]/div[1]/aside/div[2]/div[5]/div/form[2]/div[3]/div/fieldset/legend")
+    link_drop.click()
+    sleep(2)
+    link_checkbox = driver.find_element(By.XPATH, "/html/body/div[2]/div[1]/aside/div[2]/div[5]/div/form[2]/div[3]/div/fieldset/div/div[1]/input")
+    link_checkbox.click()
+    sleep(2)
+    box_count = driver.find_element(By.XPATH, "/html/body/div[2]/div[1]/aside/div[2]/div[5]/div/form[2]/div[3]/div/fieldset/legend/span")
+    assert box_count.text == "1"
+
+@pytest.mark.test
+def test_first_letter_selection(setup):
+    driver = setup
+    sleep(2)
+    link = driver.find_element(By.XPATH, "/html/body/div[2]/div[1]/aside/div[2]/div[3]/div/div/div[2]/div[1]/ul/li[1]/a")
+    link.click()
+    sleep(2)
+    link_letter = driver.find_element(By.XPATH, "/html/body/div[2]/div[1]/aside/div[2]/div[5]/div/form[1]/div/nav/ul/li[1]/a")
+    link_letter.click()
+    sleep(10)
+    first_course = driver.find_element(By.XPATH, "/html/body/div[2]/div[1]/main/div[1]/div[5]/div/ul/li/article/a/h2/em")
+    assert first_course.text[0] == "A"
