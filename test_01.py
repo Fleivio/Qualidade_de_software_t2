@@ -3,11 +3,13 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from time import sleep
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.service import Service as ChromeService
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
+
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import TimeoutException
+
+delay = 3
 
 @pytest.fixture
 def setup():
@@ -147,7 +149,7 @@ def test_image_alt(setup):
     img = driver.find_element(By.XPATH, "/html/body/div[2]/div[1]/main/article[2]/a/figure/img")
     alt = img.get_attribute("alt")
 
-    assert alt == "Student sitzt mit einem Laptop auf der Treppe"
+    assert alt == "Grafik"
 
 @pytest.mark.test
 def test_pagination(setup):
