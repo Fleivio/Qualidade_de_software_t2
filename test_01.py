@@ -41,7 +41,7 @@ def setup():
 @pytest.mark.test
 def test_header_button(setup):
     driver = setup
-    button = driver.find_element(By.XPATH, "//html/body/header/div/div[3]/div/div/nav/ul/li[1]/a")
+    button = driver.find_element(By.XPATH, "/html/body/header/div/div[3]/div/div/nav/ul/li[1]/a")
     dropDown = driver.find_element(By.XPATH, "/html/body/header/div/div[3]/div/div/nav/ul/li[1]/div")
     sleep(2)
     button.click()
