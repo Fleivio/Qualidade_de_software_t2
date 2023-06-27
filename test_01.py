@@ -28,14 +28,14 @@ def test_title(setup):
 def test_swap(setup):
     driver = setup
 
-    sleep(1)
+    #sleep(1)
 
     slider = WebDriverWait(driver,10).until(EC.visibility_of_element_located((By.XPATH, "/html/body/div[2]/div[1]/div[1]/div[1]/section/div[3]/div[1]/ul")))
     style1 = slider.get_attribute("style")
     
     rButton = WebDriverWait(driver,10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[1]/div[1]/div[1]/section/div[2]/div/span[2]/a")))
     rButton.click()
-    sleep(1)
+    #sleep(1)
     style2 = slider.get_attribute("style")
     assert style1 != style2
 
@@ -53,7 +53,7 @@ def test_header_button(setup):
 @pytest.mark.test
 def test_header_button_link(setup):
     driver = setup
-    button = WebDriverWait(driver,10).until(EC.element_to_be_clickable((By.XPATH, "//html/body/header/div/div[3]/div/div/nav/ul/li[1]/a")))
+    button = WebDriverWait(driver,10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/header/div/div[3]/div/div/nav/ul/li[1]/a")))
     button.click()
 
     buttonLink = WebDriverWait(driver,10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/header/div/div[3]/div/div/nav/ul/li[1]/div/ul/li[3]/ul/li[1]/a")))
@@ -144,7 +144,7 @@ def test_image_alt(setup):
 @pytest.mark.test
 def test_pagination(setup):
     driver = setup
-    sleep(2)
+    #sleep(2)
     link = WebDriverWait(driver,10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[1]/main/div[12]/span/a")))
     link.click()
 
@@ -158,7 +158,7 @@ def test_pagination(setup):
 @pytest.mark.test
 def test_checkbox(setup):
     driver = setup
-    sleep(2)
+    #sleep(2)
     link = WebDriverWait(driver,10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[1]/aside/div[2]/div[3]/div/div/div[2]/div[1]/ul/li[1]/a")))
     link.click()
 
@@ -173,7 +173,7 @@ def test_checkbox(setup):
 @pytest.mark.test
 def test_checked_count(setup):
     driver = setup
-    sleep(2)
+    #sleep(2)
     link = WebDriverWait(driver,10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[1]/aside/div[2]/div[3]/div/div/div[2]/div[1]/ul/li[1]/a")))
     link.click()
 
@@ -190,7 +190,7 @@ def test_checked_count(setup):
 @pytest.mark.test
 def test_first_letter_selection(setup):
     driver = setup
-    sleep(2)
+    #sleep(2)
     link = WebDriverWait(driver,10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[1]/aside/div[2]/div[3]/div/div/div[2]/div[1]/ul/li[1]/a")))
     link.click()
 
